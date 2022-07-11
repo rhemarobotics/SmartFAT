@@ -1,0 +1,83 @@
+<!--
+   index.html
+   
+-->
+
+<html>
+  <head>
+    <meta lang="zh-TW" charset="utf-8">
+    <title>機器人控制網頁伺服器</title>   
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" >
+  </head>
+  <body style="width: 50%"> 
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card" style="width: 20rem;">
+            <img src="{{ url_for('static', filename='img/robot.GIF') }}" class="card-img-top" alt="robot image">
+            <div class="card-body">
+              <p class="card-text">圖上的數字代表機器人的各軸,透用下列按鈕控制各軸運作</p>
+            </div>      
+          </div>
+        </div>    
+        <div class="col">
+         <form method="get" action="/">
+          <table class="table" style="width: 20rem">
+              <thead>
+                <tr>
+                  <th scope="col">軸號</th>
+                  <th scope="col">反轉</th>
+                  <th scope="col">原點</th>
+                  <th scope="col">正轉</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td><button type="submit" class="btn btn-primary" name="servo" value="revA1">Rev-</button></td>
+                  <td><button type="submit" class="btn btn-secondary" name="servo" value="homA1">Home</button></td>
+                  <td><button type="submit" class="btn btn-success" name="servo" value="fwdA1">Fwd+</button></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td><button type="submit" class="btn btn-primary" name="servo" value="revA2">Rev-</button></td>
+                  <td><button type="submit" class="btn btn-secondary" name="servo" value="homA2">Home</button></td>
+                  <td><button type="submit" class="btn btn-success" name="servo" value="fwdA2">Fwd+</button></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td><button type="submit" class="btn btn-primary" name="servo" value="revA3">Rev-</button></td>
+                  <td><button type="submit" class="btn btn-secondary" name="servo" value="homA3">Home</button></td>
+                  <td><button type="submit" class="btn btn-success" name="servo" value="fwdA3">Fwd+</button></td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td><button type="submit" class="btn btn-primary" name="servo" value="revA4">Rev-</button></td>
+                  <td><button type="submit" class="btn btn-secondary" name="servo" value="homA4">Home</button></td>
+                  <td><button type="submit" class="btn btn-success" name="servo" value="fwdA4">Fwd+</button></td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td><button type="submit" class="btn btn-primary" name="servo" value="revA5">Rev-</button></td>
+                  <td><button type="submit" class="btn btn-secondary" name="servo" value="homA5">Home</button></td>
+                  <td><button type="submit" class="btn btn-success" name="servo" value="fwdA5">Fwd+</button></td>
+                </tr>
+                <tr>
+                  <th scope="row">6</th>
+                  <td><button type="submit" class="btn btn-primary" name="servo" value="revA6">Rev-</button></td>
+                  <td><button type="submit" class="btn btn-secondary" name="servo" value="homA6">Home</button></td>
+                  <td><button type="submit" class="btn btn-success" name="servo" value="fwdA6">Fwd+</button></td>
+                </tr>                
+              </tbody>
+            </table>
+            </form>
+            <p> @2021 Developed by Rhema Robotics</p>        
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+

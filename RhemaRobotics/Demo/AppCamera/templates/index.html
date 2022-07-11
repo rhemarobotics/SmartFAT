@@ -1,0 +1,31 @@
+<!--
+   index.html
+   
+-->
+
+<html>
+  <head>
+    <meta lang="zh-TW" charset="utf-8">
+    <title>Video Streaming影像串流伺服器</title>   
+    <meta http-equiv="refresh" content="60" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" >
+  </head>
+  <body>
+    <div class="card" style="width: 28rem;">
+      <img src="{{ url_for('video_feed') }}" class="card-img-top" alt="Video Streaming...">
+      <div class="card-body">
+        <h5 class="card-title">即時影像串流範例</h5>
+        <p class="card-text">這是一個即時影像的串流服務</p>
+      </div>
+      <ul class="list-group list-group-flush">
+      <li class="list-group-item">影像解析度: {{ imgResolution }}</li>
+      <li class="list-group-item">影像幀數: {{ imgFps }}</li>
+      <li class="list-group-item">取樣開始: {{ imgStamp }}</li>
+      </ul>
+    </div>    
+    <p> @2021 Developed by Rhema Robotics</p>
+  </body>
+</html>
+
+
