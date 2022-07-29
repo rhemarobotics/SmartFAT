@@ -31,7 +31,7 @@ objNumber = 0
 convyPos = (15, 0, 15)
 workPos = (0, 15, 15)
 placePos = ((0, 18, 3),(0, 19.3, 8),(0, 18.5, 11))
-objCenter = (15, 0, 11)
+objCenter = (15, 0, 9)
 
 
 # 主程式開始

@@ -14,7 +14,6 @@
 #include <LedControl.h> //掛載矩陣LED標頭檔
 
 #define BTN_PIN 24      //定義按鈕開關輸入腳位連接至24腳
-
 #define DIN_PIN 42      //定義矩陣LED_DIN腳位連接至42腳
 #define CS_PIN  44      //定義矩陣LED_CS 腳位連接至44腳
 #define CLK_PIN 46      //定義矩陣LED_CLK腳位連接至46腳
@@ -33,9 +32,8 @@ LedControl display = LedControl(DIN_PIN, CLK_PIN, CS_PIN);
 /************************* 初始設定 *********************/
 void setup()
 {
-  pinMode(BTN_PIN,INPUT);       //設定BTN_PIN為輸入接腳
-  
   pinMode(LED_BUILTIN, OUTPUT); //設定LED_BUILTIN為輸出接腳
+  pinMode(BTN_PIN,INPUT);       //設定BTN_PIN為輸入接腳
   display.clearDisplay(0);      //矩陣LED畫面清除
   display.shutdown(0, false);
   display.setIntensity(0, 5);   //設定矩陣LED亮度

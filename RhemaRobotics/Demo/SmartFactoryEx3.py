@@ -37,7 +37,7 @@ isObjPass = False
 convyPos = (15, 0, 15)
 workPos = (0, 15, 15)
 placePos = ((0, 19, 3.5),(0, 19.3, 8.5),(0, 18.5, 12))
-objCenter = (15, 0, 11)
+objCenter = (15, 0, 9)
 
 # 顏色方塊置放位置
 coordinate = {'red':   (-5, 17, 5),
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         # 機器人移動至稱重點位置
         myBot.gotoPoint((coordinate['blue'][0], coordinate['blue'][1], 12), -90, -90, 0, 1500)
         time.sleep(1.5)
-        myBot.gotoPoint((coordinate['blue'][0], coordinate['blue'][1], 4), -90, -90, 0, 1000)
+        myBot.gotoPoint((coordinate['blue'][0], coordinate['blue'][1], 3), -90, -90, 0, 1000)
         time.sleep(1)    
         # 打開機器人夾爪
         myBot.openGripper()

@@ -19,7 +19,7 @@ uint8_t IR_value;  //紅外線感測器數位狀態
 void setup()
 {
   Serial.begin(9600);
-  pinMode(IR_PIN, INPUT);         //設定IR_PIN為輸入接腳
+  pinMode(IR_PIN, INPUT); //設定IR_PIN為輸入接腳
 }
 
 /************************* 主程式 *********************/

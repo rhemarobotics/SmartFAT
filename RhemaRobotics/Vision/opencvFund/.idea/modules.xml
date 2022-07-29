@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/openCvPython.iml" filepath="$PROJECT_DIR$/.idea/openCvPython.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../piArm/.idea/piArm.iml" filepath="$PROJECT_DIR$/../piArm/.idea/piArm.iml" />
+    </modules>
+  </component>
+</project>
