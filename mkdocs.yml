@@ -1,0 +1,98 @@
+site_name: SmartFAT 智慧工廠教學實驗平台
+site_description: 工業4.0智慧製造與智慧工廠教學實驗教材
+site_author: Rhema Robotics
+repo_url: https://github.com/rhemarobotics/SmartFAT
+repo_name: rhemarobotics/SmartFAT
+
+theme:
+  name: material
+  language: zh-Hant
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切換至深色模式
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切換至淺色模式
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - 首頁: index.md
+  - 產品與平台:
+      - 產品與文件使用聲明書: product/disclaimer.md
+      - 1. 智慧工廠簡介: product/smart-factory-intro.md
+      - 2. 智慧工廠教學實驗平台: product/overview.md
+  - 開發環境建置:
+      - 3. 實驗平台開發環境: development/setup.md
+  - 物聯網感測模組:
+      - 模組實習概述: modules/overview.md
+      - 4.1 瓦斯氣體感測器: modules/gas-sensor.md
+      - 4.2 火焰感測器: modules/flame-sensor.md
+      - 4.3 溫溼度感測器: modules/dht-sensor.md
+      - 4.4 環境光感測器: modules/ambient-light-sensor.md
+      - 4.5 紅外線感測器: modules/ir-sensor.md
+      - 4.6 超音波感測器: modules/ultrasonic-sensor.md
+      - 4.7 繼電器控制模組: modules/relay-module.md
+      - 4.8 按鈕開關: modules/button-switch.md
+      - 4.9 重量感測器: modules/weight-sensor.md
+      - 4.10 無源蜂鳴器: modules/passive-buzzer.md
+      - 4.11 RGB LED燈: modules/rgb-led.md
+      - 4.12 OLED模組: modules/oled-module.md
+      - 4.13 LED矩陣模組: modules/led-matrix.md
+      - 4.14 數字顯示器: modules/digit-display.md
+      - 4.15 旋轉電位器: modules/potentiometer.md
+  - 物聯網網路層:
+      - 網路層概述: network/overview.md
+      - 5.1 MQTT 通訊協定: network/mqtt.md
+      - 5.2 MODBUS 通訊協定: network/modbus.md
+  - 物聯網應用層:
+      - 應用層概述: application/overview.md
+      - 6.1 第一個 Node-RED 程式: application/first-node-red.md
+      - 6.2 Node-RED Dashboard: application/node-red-dashboard.md
+      - 6.3 Node-RED MQTT 串接: application/node-red-mqtt.md
+      - 6.4 Node-RED Modbus 串接: application/node-red-modbus.md
+      - 6.5 SCADA 監控儀表板: application/scada-dashboard.md
+  - 智慧機器人:
+      - 機器人概述: robotics/overview.md
+      - 7.1 機器人座標系統: robotics/coordinate-system.md
+      - 7.2 機器人正逆運動學: robotics/kinematics.md
+      - 7.3 機器人硬體元件: robotics/hardware-components.md
+      - 7.4 伺服馬達控制範例: robotics/servo-control.md
+      - 7.5 伺服馬達監控範例: robotics/servo-monitoring.md
+      - 7.6 智慧機器人堆棧範例: robotics/palletizing-example.md
+      - 7.7 智慧機器人重量分檢範例: robotics/weight-sorting-example.md
+  - 機器視覺實務:
+      - 機器視覺概述: vision/overview.md
+      - 8.1 機器視覺簡介: vision/intro.md
+      - 8.2 OpenCV 簡介: vision/opencv-intro.md
+      - 8.3 OpenCV 基礎操作實務: vision/opencv-basics.md
+      - 8.4 色彩辨識實習: vision/color-recognition.md
+      - 8.5 輪廓辨識實習: vision/contour-recognition.md
+      - 8.6 中心位置與座標轉換: vision/coordinate-transformation.md
+      - 8.7 機器視覺與手臂協同: vision/robot-collaboration.md
+      - 8.8 協同實習總結: vision/collaboration-summary.md
+  - 更新日誌: changelog.md
