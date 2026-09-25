@@ -1,8 +1,8 @@
 # 產品與文件使用聲明書
 
-Owner: 耿良 王
+Owner: Bill Wang
 Tags: tutorial documents
-Date: March 1, 2024
+Date: September 25, 2026
 
 # 聲明書
 
