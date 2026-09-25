@@ -1,0 +1,3612 @@
+
+<!doctype html>
+<html lang="zh-Hant" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="工業4.0智慧製造與智慧工廠教學實驗教材">
+      
+      
+        <meta name="author" content="Rhema Robotics">
+      
+      
+      
+        <link rel="prev" href="../opencv-intro/">
+      
+      
+        <link rel="next" href="../color-recognition/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>8.3 OpenCV 基礎操作實務 - SmartFAT 智慧工廠教學實驗平台</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#83-opencv" class="md-skip">
+          跳轉至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="SmartFAT 智慧工廠教學實驗平台" class="md-header__button md-logo" aria-label="SmartFAT 智慧工廠教學實驗平台" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SmartFAT 智慧工廠教學實驗平台
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8.3 OpenCV 基礎操作實務
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切換至深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切換至深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切換至淺色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切換至淺色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空" aria-label="清空" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rhemarobotics/SmartFAT" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rhemarobotics/SmartFAT
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="標籤頁" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首頁
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../product/disclaimer/" class="md-tabs__link">
+          
+  
+  
+  產品與平台
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/setup/" class="md-tabs__link">
+          
+  
+  
+  開發環境建置
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../modules/overview/" class="md-tabs__link">
+          
+  
+  
+  物聯網感測模組
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../network/overview/" class="md-tabs__link">
+          
+  
+  
+  物聯網網路層
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../application/overview/" class="md-tabs__link">
+          
+  
+  
+  物聯網應用層
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robotics/overview/" class="md-tabs__link">
+          
+  
+  
+  智慧機器人
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  機器視覺實務
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  更新日誌
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導航" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SmartFAT 智慧工廠教學實驗平台" class="md-nav__button md-logo" aria-label="SmartFAT 智慧工廠教學實驗平台" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SmartFAT 智慧工廠教學實驗平台
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rhemarobotics/SmartFAT" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rhemarobotics/SmartFAT
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    產品與平台
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    產品與平台
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../product/disclaimer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    產品與文件使用聲明書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../product/smart-factory-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. 智慧工廠簡介
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../product/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. 智慧工廠教學實驗平台
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    開發環境建置
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    開發環境建置
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. 實驗平台開發環境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    物聯網感測模組
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    物聯網感測模組
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模組實習概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/gas-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.1 瓦斯氣體感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/flame-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.2 火焰感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/dht-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.3 溫溼度感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/ambient-light-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.4 環境光感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/ir-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.5 紅外線感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/ultrasonic-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.6 超音波感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/relay-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.7 繼電器控制模組
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/button-switch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.8 按鈕開關
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/weight-sensor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.9 重量感測器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/passive-buzzer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.10 無源蜂鳴器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/rgb-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.11 RGB LED燈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/oled-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.12 OLED模組
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/led-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.13 LED矩陣模組
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/digit-display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.14 數字顯示器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/potentiometer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.15 旋轉電位器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    物聯網網路層
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    物聯網網路層
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    網路層概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/mqtt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.1 MQTT 通訊協定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/modbus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.2 MODBUS 通訊協定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    物聯網應用層
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    物聯網應用層
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    應用層概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/first-node-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.1 第一個 Node-RED 程式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/node-red-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2 Node-RED Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/node-red-mqtt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.3 Node-RED MQTT 串接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/node-red-modbus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.4 Node-RED Modbus 串接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../application/scada-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.5 SCADA 監控儀表板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    智慧機器人
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    智慧機器人
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    機器人概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/coordinate-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.1 機器人座標系統
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/kinematics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.2 機器人正逆運動學
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/hardware-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3 機器人硬體元件
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/servo-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.4 伺服馬達控制範例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/servo-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.5 伺服馬達監控範例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/palletizing-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.6 智慧機器人堆棧範例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robotics/weight-sorting-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.7 智慧機器人重量分檢範例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    機器視覺實務
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    機器視覺實務
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    機器視覺概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1 機器視覺簡介
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../opencv-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.2 OpenCV 簡介
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3 OpenCV 基礎操作實務
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3 OpenCV 基礎操作實務
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#831-image-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.1：影像載入與環境驗證 (Image Loading)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.1：影像載入與環境驗證 (Image Loading)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap1py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap1.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 教學重點筆記 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 成果紀錄
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#832-advanced-image-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.2：影像進階處理 (Advanced Image Processing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.2：影像進階處理 (Advanced Image Processing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap2py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap2.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 技術深度解析 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#833-resize-crop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.3：影像大小改變與裁切 (Resize &amp; Crop)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.3：影像大小改變與裁切 (Resize &amp; Crop)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap3py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap3.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 技術深度解析 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#834-drawing-on-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.4：影像繪圖標記 (Drawing on Images)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.4：影像繪圖標記 (Drawing on Images)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap4py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap4.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 技術深度解析 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#835-perspective-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.5：影像投射轉換 (Perspective Transform)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.5：影像投射轉換 (Perspective Transform)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap5py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式碼與註解：chap5.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 投影函式應用方式解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-cv2getperspectivetransformsrc-dst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. cv2.getPerspectiveTransform(src, dst)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cv2warpperspectivesrc-m-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. cv2.warpPerspective(src, M, size)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 教學小提醒
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 單元 8.3 實習小結
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../color-recognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4 色彩辨識實習
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contour-recognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.5 輪廓辨識實習
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coordinate-transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.6 中心位置與座標轉換
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../robot-collaboration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.7 機器視覺與手臂協同
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collaboration-summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.8 協同實習總結
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    更新日誌
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#831-image-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.1：影像載入與環境驗證 (Image Loading)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.1：影像載入與環境驗證 (Image Loading)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap1py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap1.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 教學重點筆記 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 成果紀錄
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#832-advanced-image-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.2：影像進階處理 (Advanced Image Processing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.2：影像進階處理 (Advanced Image Processing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap2py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap2.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 技術深度解析 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#833-resize-crop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.3：影像大小改變與裁切 (Resize &amp; Crop)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.3：影像大小改變與裁切 (Resize &amp; Crop)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap3py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap3.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 技術深度解析 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#834-drawing-on-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.4：影像繪圖標記 (Drawing on Images)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.4：影像繪圖標記 (Drawing on Images)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap4py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式：chap4.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-level_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 技術深度解析 (University Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#835-perspective-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 實習 8.3.5：影像投射轉換 (Perspective Transform)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 實習 8.3.5：影像投射轉換 (Perspective Transform)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 動作要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chap5py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💻 範例程式碼與註解：chap5.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 投影函式應用方式解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-cv2getperspectivetransformsrc-dst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. cv2.getPerspectiveTransform(src, dst)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cv2warpperspectivesrc-m-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. cv2.warpPerspective(src, M, size)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 教學小提醒
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📷 實驗成果紀錄表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 單元 8.3 實習小結
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="83-opencv">8.3. OpenCV 基礎操作實務</h1>
+<p>Owner: 耿良 王
+Tags: tutorial documents
+Date: March 1, 2024</p>
+<p>本單元是機器視覺的起點。我們將從數位影像的底層邏輯（矩陣）出發，學習如何利用 OpenCV 對影像進行基礎的預處理與轉換，為後續的工業辨識任務奠定基礎。</p>
+<h2 id="831-image-loading">📋 實習 8.3.1：影像載入與環境驗證 (Image Loading)</h2>
+<hr />
+<blockquote>
+<p>實驗情境：</p>
+<p>在智慧工廠的視覺檢測系統中，第一步必須確保系統能正確讀取工業相機或本地端儲存的數位影像。本節將透過 OpenCV 基礎函式，練習影像的讀取、顯示與記憶體釋放。
+</p>
+</blockquote>
+<hr />
+<h3 id="_1">⚙️ 動作要求</h3>
+<ol>
+<li><strong>開啟終端機</strong>：進入 Raspberry Pi 系統環境。</li>
+<li><strong>定位路徑</strong>：找到專案路徑 <code>/home/pi/RhemaRobotics/Vision/opencvFund/</code> 。</li>
+<li><strong>執行程式</strong>：執行 <code>chap1.py</code> 並觀察彈出的視窗影像。</li>
+<li><strong>觀察結果</strong>：確認視窗顯示標題為 <code>output</code> 且圖片內容正確，如下圖所示。</li>
+</ol>
+<hr />
+<h3 id="chap1py">💻 範例程式：chap1.py</h3>
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="s1">'''-------------------------------------------------------</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="s1">單位：雷瑪機器人科技有限公司 (Rhema Robotics)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="s1">功能：影像載入與視窗控制實作</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="s1">說明：本程式演示如何將本地端圖片載入至 NumPy 矩陣並進行顯示。</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="s1">執行：python3 chap1.py</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="s1">----------------------------------------------------------</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s1">'''</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env python3</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="err">#</span><span class="w"> </span><span class="nx">encoding</span><span class="o">:</span><span class="nx">utf</span><span class="o">-</span><span class="mf">8</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">import</span><span class="w"> </span><span class="nx">sys</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="err">#</span><span class="w"> </span><span class="nx">將雷瑪機器視覺函式庫路徑加入系統搜尋路徑</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">'/home/pi/RhemaRobotics/Vision/opencvFund/'</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">import</span><span class="w"> </span><span class="nx">cv2</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="err">#</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="nx">影像讀取</span><span class="w"> </span><span class="p">(</span><span class="nx">Read</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="err">#</span><span class="w"> </span><span class="nx">使用</span><span class="w"> </span><span class="nx">imread</span><span class="w"> </span><span class="nx">函式載入</span><span class="w"> </span><span class="nx">Resource</span><span class="w"> </span><span class="nx">資料夾中的</span><span class="w"> </span><span class="nx">lena</span><span class="p">.</span><span class="nx">png</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="err">#</span><span class="w"> </span><span class="nx">注意</span><span class="err">：</span><span class="nx">若路徑錯誤</span><span class="err">，</span><span class="nx">img</span><span class="w"> </span><span class="nx">將回傳為</span><span class="w"> </span><span class="nx">None</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">imread</span><span class="p">(</span><span class="s1">'Resource/lena.png'</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="err">#</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nx">影像顯示</span><span class="w"> </span><span class="p">(</span><span class="nx">Show</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="err">#</span><span class="w"> </span><span class="s1">'output'</span><span class="w"> </span><span class="nx">為顯示視窗的名稱</span><span class="err">，</span><span class="nx">img</span><span class="w"> </span><span class="nx">為要顯示的影像矩陣</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'output'</span><span class="p">,</span><span class="w"> </span><span class="nx">img</span><span class="p">)</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="err">#</span><span class="w"> </span><span class="mf">3.</span><span class="w"> </span><span class="nx">視窗等待</span><span class="w"> </span><span class="p">(</span><span class="nx">Wait</span><span class="p">)</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="err">#</span><span class="w"> </span><span class="nx">waitKey</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="nx">會讓程式暫停</span><span class="err">，</span><span class="nx">直到使用者按下鍵盤上的任意鍵</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="err">#</span><span class="w"> </span><span class="nx">若不加此行</span><span class="err">，</span><span class="nx">視窗會因程式執行結束而瞬間關閉</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">waitKey</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="err">#</span><span class="w"> </span><span class="mf">4.</span><span class="w"> </span><span class="nx">資源釋放</span><span class="w"> </span><span class="p">(</span><span class="nx">Clean</span><span class="w"> </span><span class="nx">up</span><span class="p">)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="err">#</span><span class="w"> </span><span class="nx">釋放所有由</span><span class="w"> </span><span class="nx">OpenCV</span><span class="w"> </span><span class="nx">開啟的視窗</span><span class="err">，</span><span class="nx">避免記憶體洩漏</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="university-level">📝 教學重點筆記 (University Level)</h3>
+<table>
+<thead>
+<tr>
+<th><strong>關鍵函式</strong></th>
+<th><strong>功能說明</strong></th>
+<th><strong>參數意義</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cv2.imread()</code></td>
+<td>將圖檔解碼為多維矩陣</td>
+<td>第一參數為圖片路徑</td>
+</tr>
+<tr>
+<td><code>cv2.imshow()</code></td>
+<td>建立視窗並繪製矩陣內容</td>
+<td><code>'output'</code> 為視窗標題</td>
+</tr>
+<tr>
+<td><code>cv2.waitKey(0)</code></td>
+<td>阻塞程序運行，監聽按鍵事件</td>
+<td><code>0</code> 表示無限等待</td>
+</tr>
+<tr>
+<td><code>shape</code>屬性</td>
+<td>可透過 <code>img.shape</code> 觀察解析度</td>
+<td>回傳 (高度, 寬度, 通道數)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 小提醒：</p>
+<p>在工業現場，若 cv2.imread() 讀取失敗，通常是因為路徑不正確或檔案權限不足。在進行下一單元前，請務必確保你能看到視窗影像。
+</p>
+</blockquote>
+<hr />
+<h3 id="_2">📷 成果紀錄</h3>
+<ul>
+<li>
+<p><strong>截圖區域</strong>：(請在此處貼上執行 <code>chap1.py</code> 後的畫面截圖)</p>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image.png" /></p>
+</li>
+<li>
+<p><strong>心得筆記</strong>：(紀錄你在執行過程中的觀察，例如視窗大小與圖片畫質)</p>
+</li>
+</ul>
+<h2 id="832-advanced-image-processing">📋 實習 8.3.2：影像進階處理 (Advanced Image Processing)</h2>
+<blockquote>
+<p>實驗情境：</p>
+<p>在自動化流水線上，相機擷取的彩色影像資訊量過大且包含環境干擾。本實驗將模擬工業視覺的「特徵提取流水線」，將雜亂的影像轉化為乾淨的幾何輪廓，以便後續機械手臂進行精確定位。
+</p>
+</blockquote>
+<hr />
+<h3 id="_3">⚙️ 動作要求</h3>
+<ol>
+<li><strong>開啟程式</strong>：開啟專案路徑下的範例程式 <code>chap2.py</code>。</li>
+<li><strong>參數調整</strong>：觀察高斯模糊的卷積核尺寸（Kernel Size）與 Canny 的高低閾值對結果的影響。</li>
+<li><strong>執行並對比</strong>：執行程式後，應同時出現三種處理階段的視窗。</li>
+</ol>
+<hr />
+<h3 id="chap2py">💻 範例程式：chap2.py</h3>
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="s1">'''-------------------------------------------------------</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="s1">單位：雷瑪機器人科技有限公司 (Rhema Robotics)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="s1">功能：影像預處理流水線實作 (灰階、模糊、邊緣偵測)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="s1">說明：演示如何將原始影像過濾雜訊並提取結構特徵。</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="s1">執行：python3 chap2.py</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s1">----------------------------------------------------------</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="s1">'''</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env python3</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="err">#</span><span class="w"> </span><span class="nx">encoding</span><span class="o">:</span><span class="nx">utf</span><span class="o">-</span><span class="mf">8</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">import</span><span class="w"> </span><span class="nx">sys</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="err">#</span><span class="w"> </span><span class="nx">加入雷瑪視覺路徑</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">'/home/pi/RhemaRobotics/Vision/opencvFund/'</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">import</span><span class="w"> </span><span class="nx">cv2</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="err">#</span><span class="w"> </span><span class="nx">載入原始測試影像</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">imread</span><span class="p">(</span><span class="s1">'Resource/lena.png'</span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="err">#</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="nx">灰階處理</span><span class="w"> </span><span class="p">(</span><span class="nx">Grayscale</span><span class="p">)</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="err">#</span><span class="w"> </span><span class="nx">將</span><span class="w"> </span><span class="nx">BGR</span><span class="w"> </span><span class="nx">三通道影像轉為單通道灰階影像</span><span class="err">，</span><span class="nx">減少</span><span class="w"> </span><span class="mf">2</span><span class="o">/</span><span class="mf">3</span><span class="w"> </span><span class="nx">的運算量</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="nx">img_gray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">cvtColor</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">COLOR_BGR2GRAY</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="err">#</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nx">高斯模糊</span><span class="w"> </span><span class="p">(</span><span class="nx">Gaussian</span><span class="w"> </span><span class="nx">Blur</span><span class="p">)</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="err">#</span><span class="w"> </span><span class="nx">使用</span><span class="w"> </span><span class="mf">11</span><span class="nx">x11</span><span class="w"> </span><span class="nx">的捲積核</span><span class="err">，</span><span class="nx">標準差設為</span><span class="w"> </span><span class="mf">11</span><span class="err">。</span><span class="nx">用於消除影像細微雜訊</span><span class="p">(</span><span class="nx">降噪</span><span class="p">)</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="nx">img_gb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">GaussianBlur</span><span class="p">(</span><span class="nx">img_gray</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">11</span><span class="p">,</span><span class="w"> </span><span class="mf">11</span><span class="p">),</span><span class="w"> </span><span class="mf">11</span><span class="p">)</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="err">#</span><span class="w"> </span><span class="mf">3.</span><span class="w"> </span><span class="nx">Canny</span><span class="w"> </span><span class="nx">邊緣偵測</span><span class="w"> </span><span class="p">(</span><span class="nx">Edge</span><span class="w"> </span><span class="nx">Detection</span><span class="p">)</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="err">#</span><span class="w"> </span><span class="nx">使用雙閾值法提取輪廓</span><span class="err">。</span><span class="mf">20</span><span class="w"> </span><span class="nx">為低閾值</span><span class="err">，</span><span class="mf">80</span><span class="w"> </span><span class="nx">為高閾值</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="err">#</span><span class="w"> </span><span class="nx">低於</span><span class="w"> </span><span class="mf">20</span><span class="w"> </span><span class="nx">會被捨棄</span><span class="err">，</span><span class="nx">高於</span><span class="w"> </span><span class="mf">80</span><span class="w"> </span><span class="nx">會被視為強邊緣</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="nx">img_canny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">Canny</span><span class="p">(</span><span class="nx">img_gb</span><span class="p">,</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span><span class="w"> </span><span class="mf">80</span><span class="p">)</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="err">#</span><span class="w"> </span><span class="mf">4.</span><span class="w"> </span><span class="nx">顯示各階段處理結果</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Gray'</span><span class="p">,</span><span class="w"> </span><span class="nx">img_gray</span><span class="p">)</span><span class="w">      </span><span class="err">#</span><span class="w"> </span><span class="nx">顯示灰階圖</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Blur'</span><span class="p">,</span><span class="w"> </span><span class="nx">img_gb</span><span class="p">)</span><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="nx">顯示模糊圖</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Canny'</span><span class="p">,</span><span class="w"> </span><span class="nx">img_canny</span><span class="p">)</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nx">顯示邊緣輪廓圖</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">waitKey</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="university-level_1">📝 技術深度解析 (University Level)</h3>
+<table>
+<thead>
+<tr>
+<th><strong>處理步驟</strong></th>
+<th><strong>數學/技術原理</strong></th>
+<th><strong>工業應用目的</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>灰階轉換</strong></td>
+<td>$Y = 0.299R + 0.587G + 0.114B$</td>
+<td>簡化資料，加快後端演算法速度。</td>
+</tr>
+<tr>
+<td><strong>高斯模糊</strong></td>
+<td>對鄰域像素進行加權平均（正態分佈）</td>
+<td>濾除電子感測器產生的顆粒雜訊。</td>
+</tr>
+<tr>
+<td><strong>Canny 偵測</strong></td>
+<td>計算像素梯度強度與方向</td>
+<td>鎖定零件物理邊界，準備進行尺寸測量。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 實作技巧：</p>
+<p>如果 img_canny 出現太多破碎的線條，試著增加 GaussianBlur 的核尺寸（例如從 (11,11) 改為 (15,15)），或者調高 Canny 的低閾值。
+</p>
+</blockquote>
+<hr />
+<h3 id="_4">📷 實驗成果紀錄表</h3>
+<ul>
+<li>
+<p><strong>原始與灰階對比</strong>：(請描述轉換後影像資訊量有何變化)</p>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image%201.png" /></p>
+</li>
+<li>
+<p><strong>模糊前後差異</strong>：(觀察邊緣是否變得平滑？)</p>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image%202.png" /></p>
+</li>
+<li>
+<p><strong>Canny 執行截圖</strong>：</p>
+<ul>
+<li>[ ]  成功擷取邊緣輪廓。</li>
+<li>[ ]  輪廓線條連續且清晰。</li>
+</ul>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image%203.png" /></p>
+</li>
+</ul>
+<hr />
+<p><strong>接下來，我們要進入 8.3.3「影像大小改變與裁切實習」嗎？這對於限制處理範圍（ROI）以節省硬體資源非常關鍵。</strong></p>
+<hr />
+<h2 id="833-resize-crop">📋 實習 8.3.3：影像大小改變與裁切 (Resize &amp; Crop)</h2>
+<blockquote>
+<p>實驗情境：</p>
+<p>智慧工廠的處理器（如 Raspberry Pi）資源有限。若直接處理高解析度影像會導致延遲。本實驗練習如何調整影像維度，並利用矩陣切片技術，精確地「裁切」出輸送帶上的工件區域（ROI）。
+</p>
+</blockquote>
+<hr />
+<h3 id="_5">⚙️ 動作要求</h3>
+<ol>
+<li><strong>開啟程式</strong>：開啟路徑下的範例程式 <code>chap3.py</code>。</li>
+<li><strong>座標定義</strong>：理解 Python 矩陣中 <code>[y1:y2, x1:x2]</code> 的座標邏輯。</li>
+<li><strong>執行觀察</strong>：比較縮放後的解析度變化，以及裁切後影像保留的局部細節。</li>
+</ol>
+<hr />
+<h3 id="chap3py">💻 範例程式：chap3.py</h3>
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="s1">'''-------------------------------------------------------</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="s1">單位：雷瑪機器人科技有限公司 (Rhema Robotics)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="s1">功能：影像幾何變換實作 (縮放與局部裁切)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="s1">說明：學習如何調整影像尺寸並選取感興趣區域 (ROI)。</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="s1">執行：python3 chap3.py</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="s1">----------------------------------------------------------</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s1">'''</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env python3</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">#</span><span class="w"> </span><span class="nx">encoding</span><span class="o">:</span><span class="nx">utf</span><span class="o">-</span><span class="mf">8</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">import</span><span class="w"> </span><span class="nx">sys</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="err">#</span><span class="w"> </span><span class="nx">加入雷瑪視覺函式庫路徑</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">'/home/pi/RhemaRobotics/Vision/opencvFund/'</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="k">import</span><span class="w"> </span><span class="nx">cv2</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="err">#</span><span class="w"> </span><span class="nx">載入原始測試影像</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">imread</span><span class="p">(</span><span class="s1">'Resource/lambo.png'</span><span class="p">)</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="err">#</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="nx">改變影像大小</span><span class="w"> </span><span class="p">(</span><span class="nx">Resize</span><span class="p">)</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="err">#</span><span class="w"> </span><span class="nx">將影像強制縮放為</span><span class="w"> </span><span class="nx">寬320</span><span class="w"> </span><span class="nx">像素</span><span class="err">、</span><span class="nx">高240</span><span class="w"> </span><span class="nx">像素</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="err">#</span><span class="w"> </span><span class="nx">注意</span><span class="err">：</span><span class="nx">參數順序為</span><span class="w"> </span><span class="p">(</span><span class="nx">寬</span><span class="p">,</span><span class="w"> </span><span class="nx">高</span><span class="p">)</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="nx">img_resize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">resize</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">320</span><span class="p">,</span><span class="w"> </span><span class="mf">240</span><span class="p">))</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="err">#</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nx">影像裁切</span><span class="w"> </span><span class="p">(</span><span class="nx">Crop</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">ROI</span><span class="p">)</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="err">#</span><span class="w"> </span><span class="nx">利用</span><span class="w"> </span><span class="nx">NumPy</span><span class="w"> </span><span class="nx">陣列切片</span><span class="err">：</span><span class="nx">img</span><span class="p">[</span><span class="nx">y_start</span><span class="o">:</span><span class="nx">y_end</span><span class="p">,</span><span class="w"> </span><span class="nx">x_start</span><span class="o">:</span><span class="nx">x_end</span><span class="p">]</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="err">#</span><span class="w"> </span><span class="nx">這裡選取</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="nx">座標</span><span class="w"> </span><span class="mf">10</span><span class="o">~</span><span class="mf">200</span><span class="w"> </span><span class="nx">與</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="nx">座標</span><span class="w"> </span><span class="mf">10</span><span class="o">~</span><span class="mf">200</span><span class="w"> </span><span class="nx">的範圍</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="nx">img_crop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">[</span><span class="mf">10</span><span class="o">:</span><span class="mf">200</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="o">:</span><span class="mf">200</span><span class="p">]</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="err">#</span><span class="w"> </span><span class="nx">顯示處理結果</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Original'</span><span class="p">,</span><span class="w"> </span><span class="nx">img</span><span class="p">)</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="nx">原始影像</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Resize'</span><span class="p">,</span><span class="w"> </span><span class="nx">img_resize</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">縮放影像</span><span class="w"> </span><span class="p">(</span><span class="mf">320</span><span class="nx">x240</span><span class="p">)</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Crop'</span><span class="p">,</span><span class="w"> </span><span class="nx">img_crop</span><span class="p">)</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="nx">裁切後的區域</span><span class="w"> </span><span class="p">(</span><span class="nx">ROI</span><span class="p">)</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">waitKey</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="university-level_2">📝 技術深度解析 (University Level)</h3>
+<table>
+<thead>
+<tr>
+<th><strong>技術術語</strong></th>
+<th><strong>運作邏輯</strong></th>
+<th><strong>工業應用目的</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Resize (縮放)</strong></td>
+<td>透過插值演算法（如雙線性插值）重新計算像素</td>
+<td>降低資料量，確保即時控制系統的 FPS (每秒幀數)。</td>
+</tr>
+<tr>
+<td><strong>ROI (感興趣區域)</strong></td>
+<td>僅保留矩陣中特定的索引範圍</td>
+<td>排除環境雜訊（如輸送帶邊框），專注辨識工件。</td>
+</tr>
+<tr>
+<td><strong>Array Slicing</strong></td>
+<td><code>img[y, x]</code> 矩陣切片</td>
+<td>OpenCV 與 NumPy 結合的高效記憶體操作方式。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 實作技巧：</p>
+<p>在執行裁切時，必須確保 y_end 不超過影像的高度，x_end 不超過影像的寬度，否則程式會拋出「Index Out of Range」錯誤。你可以透過 img.shape 先確認原始影像的大小。
+</p>
+</blockquote>
+<hr />
+<h3 id="_6">📷 實驗成果紀錄表</h3>
+<ul>
+<li>
+<p><strong>縮放效果觀察</strong>：(請描述縮放至 320x240 後，影像細節是否有明顯遺失？)</p>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image%204.png" /></p>
+</li>
+<li>
+<p><strong>ROI 座標紀錄</strong>：</p>
+<ul>
+<li>左上角座標 $(x, y)$：<strong><em>_</em></strong>___</li>
+<li>右下角座標 $(x, y)$：<strong><em>_</em></strong>___</li>
+</ul>
+</li>
+<li><strong>執行截圖</strong>：<ul>
+<li>[ ]  成功產出三種尺寸不同的視窗。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p><strong>準備好進入 8.3.4「影像繪圖實習」了嗎？我們將學習如何在偵測到工件後，於畫面上繪製視覺化的標記資訊！</strong></p>
+<hr />
+<h2 id="834-drawing-on-images">📋 實習 8.3.4：影像繪圖標記 (Drawing on Images)</h2>
+<blockquote>
+<p>實驗情境：</p>
+<p>當視覺系統成功定位到傳送帶上的零件後，我們需要在畫面上即時繪製「偵測框」或「分類標籤」。本實驗將練習如何利用 OpenCV 的繪圖函式，在影像矩陣上疊加直線、圓形、矩形以及文字資訊。
+</p>
+</blockquote>
+<hr />
+<h3 id="_7">⚙️ 動作要求</h3>
+<ol>
+<li><strong>開啟程式</strong>：開啟專案路徑下的範例程式 <code>chap4.py</code>。</li>
+<li><strong>座標控制</strong>：學習 OpenCV 的 (x, y) 座標系統（原點在左上角）。</li>
+<li><strong>顏色與粗細</strong>：理解顏色參數為 <code>(B, G, R)</code> 格式，並觀察粗細參數對視覺效果的影響。</li>
+</ol>
+<hr />
+<h3 id="chap4py">💻 範例程式：chap4.py</h3>
+<p>Python</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="s1">'''-------------------------------------------------------</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="s1">單位：雷瑪機器人科技有限公司 (Rhema Robotics)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="s1">功能：影像繪圖與標註實作</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="s1">說明：學習在影像上繪製基礎幾何圖形與文字標記。</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="s1">執行：python3 chap4.py</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="s1">----------------------------------------------------------</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="s1">'''</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env python3</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">#</span><span class="w"> </span><span class="nx">encoding</span><span class="o">:</span><span class="nx">utf</span><span class="o">-</span><span class="mf">8</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">import</span><span class="w"> </span><span class="nx">sys</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">#</span><span class="w"> </span><span class="nx">加入雷瑪視覺函式庫路徑</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">'/home/pi/RhemaRobotics/Vision/opencvFund/'</span><span class="p">)</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">import</span><span class="w"> </span><span class="nx">cv2</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="err">#</span><span class="w"> </span><span class="nx">載入原始測試影像</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">imread</span><span class="p">(</span><span class="s1">'Resource/lambo.png'</span><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="err">#</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="nx">畫直線</span><span class="w"> </span><span class="p">(</span><span class="nx">Line</span><span class="p">)</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="err">#</span><span class="w"> </span><span class="nx">參數</span><span class="err">：</span><span class="p">(</span><span class="nx">影像</span><span class="p">,</span><span class="w"> </span><span class="nx">起點座標</span><span class="p">,</span><span class="w"> </span><span class="nx">終點座標</span><span class="p">,</span><span class="w"> </span><span class="nx">顏色BGR</span><span class="p">,</span><span class="w"> </span><span class="nx">粗細</span><span class="p">)</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="err">#</span><span class="w"> </span><span class="nx">繪製一條藍色直線</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mf">255</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">),</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="err">#</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nx">畫圓形</span><span class="w"> </span><span class="p">(</span><span class="nx">Circle</span><span class="p">)</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="err">#</span><span class="w"> </span><span class="nx">參數</span><span class="err">：</span><span class="p">(</span><span class="nx">影像</span><span class="p">,</span><span class="w"> </span><span class="nx">圓心座標</span><span class="p">,</span><span class="w"> </span><span class="nx">半徑</span><span class="p">,</span><span class="w"> </span><span class="nx">顏色BGR</span><span class="p">,</span><span class="w"> </span><span class="nx">粗細</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="nx">表示填滿</span><span class="p">)</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="err">#</span><span class="w"> </span><span class="nx">繪製一個綠色空心圓</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">circle</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">),</span><span class="w"> </span><span class="mf">50</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">255</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">),</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="err">#</span><span class="w"> </span><span class="mf">3.</span><span class="w"> </span><span class="nx">畫矩形</span><span class="w"> </span><span class="p">(</span><span class="nx">Rectangle</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">工業視覺中最常用於標記目標物</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="err">#</span><span class="w"> </span><span class="nx">參數</span><span class="err">：</span><span class="p">(</span><span class="nx">影像</span><span class="p">,</span><span class="w"> </span><span class="nx">左上角座標</span><span class="p">,</span><span class="w"> </span><span class="nx">右下角座標</span><span class="p">,</span><span class="w"> </span><span class="nx">顏色BGR</span><span class="p">,</span><span class="w"> </span><span class="nx">粗細</span><span class="p">)</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="err">#</span><span class="w"> </span><span class="nx">繪製一個紅色矩形框</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">rectangle</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">200</span><span class="p">,</span><span class="w"> </span><span class="mf">50</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mf">300</span><span class="p">,</span><span class="w"> </span><span class="mf">150</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">255</span><span class="p">),</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="err">#</span><span class="w"> </span><span class="mf">4.</span><span class="w"> </span><span class="nx">加上文字</span><span class="w"> </span><span class="p">(</span><span class="nx">Put</span><span class="w"> </span><span class="nx">Text</span><span class="p">)</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="err">#</span><span class="w"> </span><span class="nx">參數</span><span class="err">：</span><span class="p">(</span><span class="nx">影像</span><span class="p">,</span><span class="w"> </span><span class="nx">內容</span><span class="p">,</span><span class="w"> </span><span class="nx">座標</span><span class="p">,</span><span class="w"> </span><span class="nx">字型</span><span class="p">,</span><span class="w"> </span><span class="nx">大小</span><span class="p">,</span><span class="w"> </span><span class="nx">顏色</span><span class="p">,</span><span class="w"> </span><span class="nx">粗細</span><span class="p">)</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">putText</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="s1">'Rhema Robotics'</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">50</span><span class="p">,</span><span class="w"> </span><span class="mf">250</span><span class="p">),</span><span class="w"> </span>
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w">            </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">255</span><span class="p">,</span><span class="w"> </span><span class="mf">255</span><span class="p">,</span><span class="w"> </span><span class="mf">255</span><span class="p">),</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="err">#</span><span class="w"> </span><span class="nx">顯示繪圖結果</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'Draw Result'</span><span class="p">,</span><span class="w"> </span><span class="nx">img</span><span class="p">)</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">waitKey</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="university-level_3">📝 技術深度解析 (University Level)</h3>
+<table>
+<thead>
+<tr>
+<th><strong>函式名稱</strong></th>
+<th><strong>關鍵參數說明</strong></th>
+<th><strong>工業實務應用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>cv2.line</code></strong></td>
+<td><code>(x, y)</code> 座標起終點</td>
+<td>用於繪製基準線或量測路徑。</td>
+</tr>
+<tr>
+<td><strong><code>cv2.circle</code></strong></td>
+<td>半徑 (Radius)</td>
+<td>用於標記物件質心 (Centroid) 或圓孔定位。</td>
+</tr>
+<tr>
+<td><strong><code>cv2.rectangle</code></strong></td>
+<td><code>thickness</code> (若設為 -1 則為實心)</td>
+<td>用於物件偵測 (Object Detection) 的邊界框 (Bounding Box)。</td>
+</tr>
+<tr>
+<td><strong><code>cv2.putText</code></strong></td>
+<td><code>fontFace</code> (支援多種字型)</td>
+<td>即時顯示工件編號、信心度或分類結果。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 實作技巧：</p>
+<p>OpenCV 的顏色順序是 BGR (藍, 綠, 紅)，這與常見的 RGB 順序相反。例如 (255, 0, 0) 代表純藍色。在標記多個物件時，建議使用不同顏色來區分不同類別的產品。
+</p>
+</blockquote>
+<hr />
+<h3 id="_8">📷 實驗成果紀錄表</h3>
+<ul>
+<li><strong>繪圖準確性</strong>：(標記的位置是否符合預期座標？)</li>
+<li><strong>顏色對比度</strong>：(觀察在不同的背景下，哪種顏色的文字最容易被肉眼辨識？)</li>
+<li>
+<p><strong>執行截圖</strong>：</p>
+<ul>
+<li>[ ]  成功在影像上顯示矩形、圓形與 Rhema Robotics 字樣。</li>
+</ul>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image%205.png" /></p>
+</li>
+</ul>
+<hr />
+<h2 id="835-perspective-transform">📋 實習 8.3.5：影像投射轉換 (Perspective Transform)</h2>
+<blockquote>
+<p>實驗情境：</p>
+<p>在自動化生產線上，相機往往無法正對工件拍攝。這會導致原本是矩形的工件在影像中變成不規則的四邊形。本實習透過「投射轉換（Perspective Transform）」，將歪斜的影像座標重新映射到標準的矩形平面上，實現精確的尺寸量測與辨識。
+</p>
+</blockquote>
+<hr />
+<h3 id="_9">⚙️ 動作要求</h3>
+<ol>
+<li><strong>開啟程式</strong>：開啟專案路徑下的範例程式 <code>chap5.py</code>。</li>
+<li><strong>座標對應</strong>：理解原圖四個頂點座標（pts1）與轉換後目標座標（pts2）的對應關係。</li>
+<li><strong>執行觀察</strong>：觀察原本歪斜的圖片如何被「拉正」成一個標準的 400x500 矩形。</li>
+</ol>
+<h3 id="chap5py">💻 範例程式碼與註解：chap5.py</h3>
+<p>python</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="s1">'''-------------------------------------------------------</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s1">單位：雷瑪機器人科技有限公司 (Rhema Robotics)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s1">功能：影像投射轉換 (Perspective Transform) 實作</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s1">說明：將斜向拍攝的影像座標重新映射，還原為正視平面圖。</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s1">執行：python3 chap5.py</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="s1">----------------------------------------------------------</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="s1">'''</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env python3</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">#</span><span class="w"> </span><span class="nx">encoding</span><span class="o">:</span><span class="nx">utf</span><span class="o">-</span><span class="mf">8</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">import</span><span class="w"> </span><span class="nx">sys</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">#</span><span class="w"> </span><span class="nx">將雷瑪機器視覺函式庫路徑加入系統搜尋路徑</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">'/home/pi/RhemaRobotics/Vision/opencvFund/'</span><span class="p">)</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">import</span><span class="w"> </span><span class="nx">cv2</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">import</span><span class="w"> </span><span class="nx">numpy</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">np</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">#</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="nx">載入原始影像</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">imread</span><span class="p">(</span><span class="s1">'Resource/cards.png'</span><span class="p">)</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="err">#</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="nx">定義輸出影像的維度</span><span class="w"> </span><span class="p">(</span><span class="nx">寬</span><span class="p">,</span><span class="w"> </span><span class="nx">高</span><span class="p">)</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">#</span><span class="w"> </span><span class="nx">這代表您希望轉換後得到的標準矩形尺寸</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="nx">wid</span><span class="p">,</span><span class="w"> </span><span class="nx">hgt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">400</span><span class="p">,</span><span class="w"> </span><span class="mf">500</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">#</span><span class="w"> </span><span class="mf">3.</span><span class="w"> </span><span class="nx">定義原圖中的四個頂點座標</span><span class="w"> </span><span class="p">(</span><span class="nx">來源點</span><span class="w"> </span><span class="nx">pts1</span><span class="p">)</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="err">#</span><span class="w"> </span><span class="nx">順序必須一致</span><span class="err">：</span><span class="p">[</span><span class="nx">左上</span><span class="p">,</span><span class="w"> </span><span class="nx">右上</span><span class="p">,</span><span class="w"> </span><span class="nx">左下</span><span class="p">,</span><span class="w"> </span><span class="nx">右下</span><span class="p">]</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">#</span><span class="w"> </span><span class="nx">這些座標通常透過手動量測或自動輪廓偵測獲得</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="nx">pts1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">np</span><span class="p">.</span><span class="nx">float32</span><span class="p">([[</span><span class="mf">591</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">1327</span><span class="p">,</span><span class="w"> </span><span class="mf">192</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">937</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">971</span><span class="p">,</span><span class="w"> </span><span class="mf">1247</span><span class="p">]])</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="err">#</span><span class="w"> </span><span class="mf">4.</span><span class="w"> </span><span class="nx">定義輸出影像中的四個對應點</span><span class="w"> </span><span class="p">(</span><span class="nx">目標點</span><span class="w"> </span><span class="nx">pts2</span><span class="p">)</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="err">#</span><span class="w"> </span><span class="nx">將來源點分別映射到輸出畫布的四個角落</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="nx">pts2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">np</span><span class="p">.</span><span class="nx">float32</span><span class="p">([[</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="nx">wid</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">hgt</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="nx">wid</span><span class="p">,</span><span class="w"> </span><span class="nx">hgt</span><span class="p">]])</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="err">#</span><span class="w"> </span><span class="mf">5.</span><span class="w"> </span><span class="nx">核心應用</span><span class="err">：</span><span class="nx">計算轉換矩陣</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="err">#</span><span class="w"> </span><span class="nx">使用</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">getPerspectiveTransform</span><span class="w"> </span><span class="nx">計算</span><span class="w"> </span><span class="mf">3</span><span class="nx">x3</span><span class="w"> </span><span class="nx">的變換矩陣</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="nx">matrix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">getPerspectiveTransform</span><span class="p">(</span><span class="nx">pts1</span><span class="p">,</span><span class="w"> </span><span class="nx">pts2</span><span class="p">)</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="err">#</span><span class="w"> </span><span class="mf">6.</span><span class="w"> </span><span class="nx">核心應用</span><span class="err">：</span><span class="nx">執行投影轉換</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="err">#</span><span class="w"> </span><span class="nx">將原圖透過矩陣進行像素重組</span><span class="err">，</span><span class="nx">生成指定大小的輸出影像</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="nx">imgOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cv2</span><span class="p">.</span><span class="nx">warpPerspective</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span><span class="w"> </span><span class="nx">matrix</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">wid</span><span class="p">,</span><span class="w"> </span><span class="nx">hgt</span><span class="p">))</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="err">#</span><span class="w"> </span><span class="nx">顯示處理對比</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'original'</span><span class="p">,</span><span class="w"> </span><span class="nx">img</span><span class="p">)</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">原始歪斜圖</span>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">imshow</span><span class="p">(</span><span class="s1">'warp'</span><span class="p">,</span><span class="w"> </span><span class="nx">imgOut</span><span class="p">)</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nx">轉換後正視圖</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">waitKey</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="nx">cv2</span><span class="p">.</span><span class="nx">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="_10">🧠 投影函式應用方式解析</h3>
+<p>在 OpenCV 中，實現影像校正主要依賴以下兩個關鍵函式的協作：</p>
+<h3 id="1-cv2getperspectivetransformsrc-dst">1. <code>cv2.getPerspectiveTransform(src, dst)</code></h3>
+<ul>
+<li><strong>應用方式</strong>：此函式負責「計算規律」。它需要兩組點：一組是影像中歪斜物體的四個角點（<code>src</code>），另一組是您希望這些角點在結果圖中出現的位置（<code>dst</code>）。</li>
+<li><strong>運算邏輯</strong>：它會回傳一個 <strong>3x3 的變換矩陣</strong>。這個矩陣包含了所有旋轉、縮放與透視偏移的數學參數。</li>
+</ul>
+<h3 id="2-cv2warpperspectivesrc-m-size">2. <code>cv2.warpPerspective(src, M, size)</code></h3>
+<ul>
+<li><strong>應用方式</strong>：此函式負責「執行轉換」。它接收原始影像（<code>src</code>）與剛才算好的矩陣（<code>M</code>），並依照您指定的尺寸（<code>size</code>）重新繪製所有像素。</li>
+<li><strong>工業用途</strong>：在 Rhema Robotics 的手臂校正中，當我們知道標誌物在空間中的真實比例，透過此函式就能將相機畫面轉換為「俯視地圖」，進而直接算出工件在輸送帶上的實際 (x, y) 毫米座標。</li>
+</ul>
+<hr />
+<h3 id="_11">📝 教學小提醒</h3>
+<ul>
+<li><strong>點的順序</strong>：如果執行結果出現「交叉」或「翻轉」，通常是因為 <code>pts1</code> 與 <code>pts2</code> 的點順序不匹配。請務必檢查順序是否皆為：<strong>左上 →右上 → 左下 → 右下</strong>。</li>
+<li><strong>座標獲取</strong>：在實務中，如果 <code>cards.png</code> 的背景複雜，建議先使用本手冊 <strong>的輪廓偵測</strong> 來自動抓取這四個頂點座標。</li>
+</ul>
+<hr />
+<h3 id="_12">📷 實驗成果紀錄表</h3>
+<ul>
+<li><strong>變換前後觀察</strong>：(原本歪斜的圖像在轉換後是否變成了矩形？邊緣是否有失真？)</li>
+<li><strong>數學驗證</strong>：觀察 <code>matrix</code> 矩陣的值（可在程式中加入 <code>print(matrix)</code>）。</li>
+<li>
+<p><strong>執行截圖</strong>：</p>
+<ul>
+<li>[ ]  成功完成 Warp Perspective 轉換。</li>
+</ul>
+<p><img alt="image.png" src="../../assets/8%20%E6%A9%9F%E5%99%A8%E8%A6%96%E8%A6%BA%E5%AF%A6%E5%8B%99%E6%8A%80%E8%A1%93/8%203%20OpenCV%20%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C%E5%AF%A6%E5%8B%99/image%206.png" /></p>
+</li>
+</ul>
+<h2 id="83">🏁 單元 8.3 實習小結</h2>
+<p>恭喜你完成了 <strong>Rhema Robotics 機器視覺基礎單元</strong>！在本單元的五個實驗中，你已經掌握了：</p>
+<ol>
+<li><strong>載入與顯示</strong> (8.3.1)</li>
+<li><strong>預處理降噪</strong> (8.3.2)</li>
+<li><strong>區域裁切與縮放</strong> (8.3.3)</li>
+<li><strong>結果標註</strong> (8.3.4)</li>
+<li><strong>視角校正</strong> (8.3.5)</li>
+</ol>
+<p>這些技術是所有進階視覺專案的「地基」。下一步，我們將進入 <strong>8.4 節：色彩辨識實務</strong>，結合本章所學的技巧，讓機器人開始學會「分辨顏色」並進行分檢任務。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u62f7\u8c9d", "clipboard.copy": "\u62f7\u8c9d", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u627e\u5230\u7b26\u5408\u689d\u4ef6\u7684\u7d50\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u689d\u4ef6\u7684\u7d50\u679c", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u689d\u4ef6\u7684\u7d50\u679c", "search.result.placeholder": "\u9375\u5165\u4ee5\u958b\u59cb\u6aa2\u7d22", "search.result.term.missing": "\u7f3a\u5931", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
